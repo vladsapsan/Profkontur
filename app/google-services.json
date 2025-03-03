@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "545404771453",
+    "project_id": "profkontur-2afac",
+    "storage_bucket": "profkontur-2afac.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545404771453:android:0d4a47935831a4aa26a514",
+        "android_client_info": {
+          "package_name": "com.android.profkontur"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq0KmDNQX0LyLgwV5fNPlofN8FwG287Dw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
