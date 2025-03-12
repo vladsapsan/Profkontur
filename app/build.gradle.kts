@@ -1,9 +1,11 @@
+
+
 plugins {
+    kotlin("kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
 }
-
 android {
     namespace = "com.android.profkontur"
     compileSdk = 35
@@ -33,14 +35,23 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+
     }
+
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
+
 }
+
 
 dependencies {
 
+    // Добавьте Data Binding
+    implementation(libs.androidx.databinding.runtime)
+    implementation(libs.gson)
+    kapt(libs.androidx.databinding.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

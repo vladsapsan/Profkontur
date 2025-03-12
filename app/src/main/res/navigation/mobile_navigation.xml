@@ -11,8 +11,8 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_chekingTestFragment"
-            app:destination="@id/chekingTestFragment" />
+            android:id="@+id/action_navigation_home_to_aboutTestFragment"
+            app:destination="@id/aboutTestFragment" />
     </fragment>
 
     <fragment
@@ -26,9 +26,23 @@
         android:name="com.android.profkontur.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
     <fragment
-        android:id="@+id/chekingTestFragment"
-        android:name="com.android.profkontur.ChekingTestFragment"
-        android:label="fragment_cheking_test"
-        tools:layout="@layout/fragment_cheking_test" />
+        android:id="@+id/aboutTestFragment"
+        android:name="com.android.profkontur.View.AboutTestFragment"
+        android:label="fragment_about_test"
+        tools:layout="@layout/fragment_about_test" >
+        <action
+            android:id="@+id/action_aboutTestFragment_to_testReportFragment"
+            app:destination="@id/testReportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/testReportFragment"
+        android:name="com.android.profkontur.View.TestReportFragment"
+        android:label="fragment_test_report"
+        tools:layout="@layout/fragment_test_report" >
+        <action
+            android:id="@+id/action_testReportFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 </navigation>

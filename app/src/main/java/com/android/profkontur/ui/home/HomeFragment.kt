@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.android.profkontur.ChekingTestFragment
 import com.android.profkontur.R
 import com.android.profkontur.databinding.FragmentHomeBinding
 
@@ -51,7 +50,7 @@ class HomeFragment : Fragment() {
 
     //Запуск фрагмента с тестом
     private fun openSecondFragment() {
-        findNavController().navigate(R.id.action_navigation_home_to_chekingTestFragment)
+        findNavController().navigate(R.id.action_navigation_home_to_aboutTestFragment)
     }
 
     override fun onDestroyView() {
