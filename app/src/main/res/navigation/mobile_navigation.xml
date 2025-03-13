@@ -11,8 +11,8 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_aboutTestFragment"
-            app:destination="@id/aboutTestFragment" />
+            android:id="@+id/action_navigation_home_to_metaTestFragment"
+            app:destination="@id/metaTestFragment" />
     </fragment>
 
     <fragment
@@ -44,5 +44,14 @@
         <action
             android:id="@+id/action_testReportFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/metaTestFragment"
+        android:name="com.android.profkontur.View.MetaTestFragment"
+        android:label="fragment_meta_test"
+        tools:layout="@layout/fragment_meta_test" >
+        <action
+            android:id="@+id/action_metaTestFragment_to_aboutTestFragment"
+            app:destination="@id/aboutTestFragment" />
     </fragment>
 </navigation>

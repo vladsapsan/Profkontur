@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.android.profkontur.Model.MetaData
 import com.android.profkontur.Model.Question
@@ -30,7 +31,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
-class TestsVIewModel:ViewModel() {
+class TestsVIewModel(private val savedStateHandle: SavedStateHandle):ViewModel() {
 
     //Хранение общих данных теста
     private val _AllTestData = MutableStateFlow<QuestionsData?>(null)
@@ -57,7 +58,20 @@ class TestsVIewModel:ViewModel() {
     private var database = Firebase.database.reference
 
     init {
-        LoadDataFromDataBase()
+        // Restore state from SavedStateHandle
+        if(savedStateHandle.get<QuestionsData>("testData")==null){
+            LoadDataFromDataBase()
+        }else {
+            val testDataJson = savedStateHandle.get<String>("testData")
+            if (testDataJson != null) {
+                _AllTestData.value = Gson().fromJson(testDataJson, QuestionsData::class.java)
+            }
+            _QurrentQuestionIndex.value = savedStateHandle.get<Int>("currentQuestionIndex") ?: 0
+            _selectedAnswers.value =
+                savedStateHandle.get<MutableList<Int?>>("selectedAnswers") ?: mutableListOf()
+            _scaleScores.value =
+                savedStateHandle.get<MutableMap<String, Int>>("totalScore") ?: mutableMapOf()
+        }
     }
     // Функция для перехода к следующему вопросу
     @SuppressLint("SuspiciousIndentation")
@@ -66,8 +80,7 @@ class TestsVIewModel:ViewModel() {
             if (questions != null && _QurrentQuestionIndex.value < questions.size ) {
                 _QurrentQuestionIndex.value++
             } else {
-                _TestIsDone.value=true
-                _AllTestData.value?.let {_scaleScores.value= calculateTotalScore(it,_selectedAnswers.value) }
+                TestDone()
             }
     }
     fun getCurrentQuestion(): Question? {
@@ -90,9 +103,9 @@ class TestsVIewModel:ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val questionsResponse = dataSnapshot.getValue()
                 if (questionsResponse != null) {
-                    _AllTestData.value = decodeTestData(jsontestdata)
+                    _AllTestData.value = decodeTestData(assessmentJsonFull)
                     _selectedAnswers.value = MutableList(_AllTestData.value!!.questions?.size ?: 0) { null } // инициализируем
-
+                    saveState() //Сохраняем
                     _LoadingState.value = LoadingState.Ready
                 }else{
                     _LoadingState.value = LoadingState.Error("Error Loading Data")
@@ -138,11 +151,25 @@ class TestsVIewModel:ViewModel() {
         return totalScore
     }
 
+
+    private fun TestDone(){
+        _TestIsDone.value=true
+        _AllTestData.value?.let {_scaleScores.value= calculateTotalScore(it,_selectedAnswers.value) }
+    }
     fun decodeTestData(json: String): QuestionsData? {
         val gsonbuild = GsonBuilder()
             .registerTypeAdapter(Scales::class.java, ScalesDeserializer())
             .create()
         return gsonbuild.fromJson(json, QuestionsData::class.java)
+    }
+
+
+    private fun saveState() {
+        val testDataJson = Gson().toJson(_AllTestData.value)
+        savedStateHandle.set("testData", testDataJson)
+        savedStateHandle.set("currentQuestionIndex", _QurrentQuestionIndex.value)
+        savedStateHandle.set("selectedAnswers", _selectedAnswers.value)
+        savedStateHandle.set("totalScore", _scaleScores.value)
     }
 
     val assessmentJsonFull = """

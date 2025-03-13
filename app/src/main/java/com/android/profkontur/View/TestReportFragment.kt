@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import com.android.profkontur.Model.QuestViewModelFactory
 import com.android.profkontur.R
 import com.android.profkontur.ViewModel.TestsVIewModel
 
@@ -36,7 +37,7 @@ class TestReportFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity()).get(TestsVIewModel::class.java)
+        viewModel = ViewModelProvider(requireParentFragment(), QuestViewModelFactory(requireActivity()))[TestsVIewModel::class.java]
 
         TestResultText= view.findViewById(R.id.TestResultText);
         TestResultText.text = (viewModel.scaleScores.value.toString())

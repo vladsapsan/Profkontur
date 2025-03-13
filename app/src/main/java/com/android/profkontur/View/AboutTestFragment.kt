@@ -16,13 +16,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.savedstate.SavedStateRegistryOwner
 import com.android.profkontur.Model.LoadingState
 import com.android.profkontur.Model.MetaData
+import com.android.profkontur.Model.QuestViewModelFactory
 import com.android.profkontur.Model.Question
 import com.android.profkontur.R
 import com.android.profkontur.ViewModel.TestsVIewModel
@@ -34,14 +37,6 @@ import kotlinx.coroutines.launch
 class AboutTestFragment : Fragment() {
 
 
-    private  lateinit var DscTestTextView: TextView
-    private lateinit var ProgressBar:ProgressBar
-    private lateinit var AboutTestLayout:LinearLayout
-    private lateinit var TestLayuot:LinearLayout
-    private  lateinit var TestNameTextView: TextView
-    private  lateinit var TimeTestTextView: TextView
-    private  lateinit var StartTestButton: Button
-
     private  lateinit var questionTextView: TextView
     private  lateinit var AboutQuestionText: TextView
     private  lateinit var TimerText: TextView
@@ -49,6 +44,8 @@ class AboutTestFragment : Fragment() {
     private  lateinit var AllQuestionNUmber: TextView
     private lateinit var answersRadioGroup:RadioGroup
     private lateinit var nextQuestionButton:Button
+
+    private lateinit var ProgressBar: ProgressBar
 
     private  lateinit var MetaData: MetaData
 
@@ -69,24 +66,15 @@ class AboutTestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity()).get(TestsVIewModel::class.java)
+        viewModel = ViewModelProvider(requireParentFragment(), QuestViewModelFactory(requireActivity()))[TestsVIewModel::class.java]
 
-
-        initAboutTestViews(view)
         initTestViews(view)
-
-        StartTestButton = view.findViewById(R.id.StartTestButton);
-        StartTestButton.setOnClickListener {
-            StartTest()
-        }
 
         nextQuestionButton.setOnClickListener {
             if(answersRadioGroup.checkedRadioButtonId==-1){
                 Toast.makeText(context,"Выберите вариант ответа", Toast.LENGTH_SHORT).show()
             }else {
-                    viewModel.selectAnswer(answersRadioGroup.indexOfChild(view.findViewById(answersRadioGroup.checkedRadioButtonId))+1) //Отправляем выбранный ответ
-                    viewModel.nextQuestion()
-                    DisplayCurrentQuestion()
+                    SendAnswer(answersRadioGroup.indexOfChild(view.findViewById(answersRadioGroup.checkedRadioButtonId))+1)
             }
         }
 
@@ -105,18 +93,15 @@ class AboutTestFragment : Fragment() {
                     when (loadingState) {
                         is LoadingState.Loading -> {
                             ProgressBar.visibility = View.VISIBLE
-                            AboutTestLayout.visibility = View.GONE
                         }
                         is LoadingState.Ready -> {
-                            DisplayMeta()
-                            InitTimer()
+                            //Запуск теста
+                            StartTest()
                             AllQuestionNUmber.text = (viewModel.AllTestData.value?.questions?.size).toString()
                             ProgressBar.visibility = View.GONE
-                            AboutTestLayout.visibility = View.VISIBLE
                         }
                         is LoadingState.Error -> {
                             ProgressBar.visibility = View.GONE
-                            AboutTestLayout.visibility = View.GONE
                             Toast.makeText(requireContext(), loadingState.messege, Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -125,7 +110,6 @@ class AboutTestFragment : Fragment() {
         }
 
     }
-
 
 
     fun InitTimer(){
@@ -145,34 +129,23 @@ class AboutTestFragment : Fragment() {
             }
         }
     }
-    fun initAboutTestViews(view: View){
-        DscTestTextView = view.findViewById(R.id.DscTestTextView);
-        TestNameTextView = view.findViewById(R.id.TestNameTextView);
-        TimeTestTextView = view.findViewById(R.id.TimeTestTextView);
-        AboutTestLayout= view.findViewById(R.id.AboutTestLayout);
-        TestLayuot= view.findViewById(R.id.TestLayuot);
-        ProgressBar= view.findViewById(R.id.ProgressBar);
-    }
+
     fun initTestViews(view: View){
         questionTextView= view.findViewById(R.id.questionTextView);
         AboutQuestionText = view.findViewById(R.id.AboutQuestionText);
         TimerText = view.findViewById(R.id.TimerText);
+        ProgressBar = view.findViewById(R.id.ProgressBar);
         CurrentQuestionNumber = view.findViewById(R.id.CurrentQuestionNumber);
         AllQuestionNUmber = view.findViewById(R.id.AllQuestionNUmber);
         answersRadioGroup = view.findViewById(R.id.answersRadioGroup);
         nextQuestionButton = view.findViewById(R.id.nextQuestionButton);
     }
-    fun DisplayMeta(){
-        MetaData = viewModel.getCurrentMeta()!!
-        if(MetaData!=null){
-            DscTestTextView.text = MetaData.short_dsc
-            TestNameTextView.text = MetaData.name
-            TimeTestTextView.text = MetaData.time
-        }else{
 
-        }
+    fun SendAnswer(int: Int){
+        viewModel.selectAnswer(int) //Отправляем выбранный ответ
+        viewModel.nextQuestion()
+        DisplayCurrentQuestion()
     }
-
     fun DisplayCurrentQuestion(){
         val question = viewModel.getCurrentQuestion()
         if (question != null) {
@@ -186,15 +159,13 @@ class AboutTestFragment : Fragment() {
     }
 
     private fun StartTest(){
-        AboutTestLayout.visibility = View.GONE
-        TestLayuot.visibility = View.VISIBLE
+        InitTimer()
         testTimer.StartTimer()
         DisplayCurrentQuestion()
     }
 
     private fun TestDone(){
         testTimer.StopTimer()
-        TestLayuot.visibility = View.GONE
         NavigateToReportAboutTest()
     }
     private fun NavigateToReportAboutTest(){

@@ -14,60 +14,9 @@
             android:id="@+id/ProgressBar"
             android:layout_width="60dp"
             android:layout_height="60dp"/>
-    <LinearLayout
-        android:id="@+id/AboutTestLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    <TextView
-        android:text=""
-        android:gravity="center"
-        android:id="@+id/TestNameTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
-    <TextView
-        android:layout_marginTop="20dp"
-        android:text=""
-        android:gravity="center"
-        android:id="@+id/DscTestTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:text="Количество минут выделенное на тест:"
-            android:id="@+id/TimeToTestTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginBottom="8dp"/>
-        <TextView
-            android:text=""
-            android:id="@+id/TimeTestTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp"/>
-
-    </LinearLayout>
-    <Button
-        android:id="@+id/StartTestButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Начать тест"
-        android:layout_gravity="center_horizontal"/>
-    </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/TestLayuot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

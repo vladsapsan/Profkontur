@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
 
     //Запуск фрагмента с тестом
     private fun openSecondFragment() {
-        findNavController().navigate(R.id.action_navigation_home_to_aboutTestFragment)
+        findNavController().navigate(R.id.action_navigation_home_to_metaTestFragment)
     }
 
     override fun onDestroyView() {
