@@ -4,26 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_gray_background_color"
     tools:context=".ui.home.HomeFragment">
 
-    <Button
-        android:id="@+id/TakeTestButtons"
+    <ProgressBar
+        android:visibility="gone"
         android:layout_gravity="center"
+        android:indeterminateTint="@color/main_blue_text_color"
+        style="?android:attr/progressBarStyleLarge"
+        android:indeterminate="false"
+        android:id="@+id/ProgressBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/MethodicTestsString"
+        android:textSize="18sp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/TakeTestButtons"
+        android:backgroundTint="@color/main_blue_text_color"
+        android:layout_gravity="bottom"
         android:layout_margin="60dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="@string/TakeTest"/>
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </FrameLayout>

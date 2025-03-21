@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    app:strokeWidth="0dp"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/insert_chart_24px"
+            />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/test_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:text="Test Name" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:visibility="gone"
+            android:id="@+id/test_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:text="Test Author" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginRight="16dp"
+        android:layout_gravity="center_vertical|right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/chevron_right_24px"
+        />
+
+</com.google.android.material.card.MaterialCardView>

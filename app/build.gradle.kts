@@ -47,8 +47,8 @@ android {
 
 
 dependencies {
-
-    // Добавьте Data Binding
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
     implementation(libs.androidx.databinding.runtime)
     implementation(libs.gson)
     kapt(libs.androidx.databinding.compiler)

@@ -25,8 +25,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
-class MetaTestFragment : Fragment() {
+class MetaTestFragment() : Fragment() {
 
+    private lateinit var TestName:String
 
     private  lateinit var DscTestTextView: TextView
     private lateinit var ProgressBar: ProgressBar
@@ -35,14 +36,15 @@ class MetaTestFragment : Fragment() {
     private  lateinit var TestNameTextView: TextView
     private  lateinit var TimeTestTextView: TextView
     private  lateinit var StartTestButton: Button
-
     private  lateinit var MetaData: MetaData
 
     private lateinit var viewModel: TestsVIewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        arguments?.let {
+            TestName = it.getString("testName").toString()
+        }
     }
 
     override fun onCreateView(
@@ -57,7 +59,7 @@ class MetaTestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireParentFragment(), QuestViewModelFactory(requireActivity()))[TestsVIewModel::class.java]
+        videModelInit()
 
         initAboutTestViews(view)
 
@@ -83,18 +85,26 @@ class MetaTestFragment : Fragment() {
                             ProgressBar.visibility = View.GONE
                             AboutTestLayout.visibility = View.GONE
                             Toast.makeText(requireContext(), loadingState.messege, Toast.LENGTH_SHORT).show()
+
+
                         }
                     }
                 }
             }
         }
-
     }
 
     private fun StartTest(){
         findNavController().navigate(R.id.action_metaTestFragment_to_aboutTestFragment)
     }
 
+    fun videModelInit(){
+        viewModel = ViewModelProvider(requireParentFragment(), QuestViewModelFactory(requireActivity()))[TestsVIewModel::class.java]
+        if(viewModel.AllTestData.value?.meta?.machine_name!=TestName){
+            viewModel.TestReset()
+        }
+        viewModel.LoadDataFromApi(TestName)
+    }
     fun DisplayMeta(){
         MetaData = viewModel.getCurrentMeta()!!
         if(MetaData!=null){

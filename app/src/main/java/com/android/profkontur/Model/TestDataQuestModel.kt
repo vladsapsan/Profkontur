@@ -22,14 +22,13 @@ data class QuestionsData(
     val counting: Counting? = null
 )
 
-
 data class Question(
     val question: String? = null,
     val dsc: String? = null,
     val type: String? = null,
-    val answers: Map<String, Answer>? = null
+    val answers: Map<String, Answer>? = null,
+    val borders:Map<String, Border>? = null
 )
-
 data class MetaData(
     val machine_name: String? = null,
     val name: String? = null,
@@ -44,8 +43,13 @@ data class MetaData(
     val questionsCount: String? = null
 )
 
+data class Border(
+    val answer: String? = null,
+)
+
 data class Answer(
-    val answer: String? = null
+    val answer: String? = null,
+    val dsc: String? = null
 )
 
 data class Scale(

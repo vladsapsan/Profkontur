@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/main_gray_background_color"
     tools:context=".View.MetaTestFragment">
 
     <ProgressBar
         android:visibility="gone"
         android:layout_gravity="center"
+        android:indeterminateTint="@color/main_blue_text_color"
         style="?android:attr/progressBarStyleLarge"
         android:indeterminate="false"
         android:id="@+id/ProgressBar"
@@ -15,55 +18,95 @@
         android:layout_height="60dp"/>
 
     <LinearLayout
+        android:layout_marginTop="16dp"
         android:id="@+id/AboutTestLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:text=""
-            android:gravity="center"
-            android:id="@+id/TestNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
-        <TextView
-            android:layout_marginTop="20dp"
-            android:text=""
-            android:gravity="center"
-            android:id="@+id/DscTestTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:text="Количество минут выделенное на тест:"
-                android:id="@+id/TimeToTestTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_marginBottom="8dp"/>
-            <TextView
-                android:text=""
-                android:id="@+id/TimeTestTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
 
-        </LinearLayout>
-        <Button
+        <com.google.android.material.card.MaterialCardView
+            android:layout_margin="16dp"
+            app:cardElevation="8dp"
+            app:strokeWidth="0dp"
+            android:backgroundTint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
+                <TextView
+                    android:text="@string/TestString"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textColor="@color/main_gray_text_color"
+                    android:textSize="16sp" />
+                <TextView
+                    android:text="Название теста"
+                    android:gravity="center"
+                    android:id="@+id/TestNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/main_black_text_color"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:layout_marginTop="36dp"
+                    android:text="Описание теста"
+                    android:gravity="center"
+                    android:id="@+id/DscTestTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:text="@string/CountMinOftestString"
+                        android:id="@+id/TimeToTestTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:text=""
+                        android:id="@+id/TimeTestTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/StartTestButton"
+            android:backgroundTint="@color/main_blue_text_color"
+            app:cornerRadius="8dp"
+            android:layout_margin="16dp"
+            app:iconPadding="6dp"
+            android:layout_gravity="center_horizontal"
+            android:paddingRight="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Начать тест"
-            android:layout_gravity="center_horizontal"/>
+            android:text="@string/StartTestString"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"
+            app:icon="@drawable/chevron_right_24px"
+            app:iconGravity="end" />
+
     </LinearLayout>
 
 
