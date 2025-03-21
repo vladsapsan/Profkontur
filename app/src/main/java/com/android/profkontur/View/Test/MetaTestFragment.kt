@@ -1,4 +1,4 @@
-package com.android.profkontur.View
+package com.android.profkontur.View.Test
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -20,7 +20,7 @@ import com.android.profkontur.Model.LoadingState
 import com.android.profkontur.Model.MetaData
 import com.android.profkontur.Model.QuestViewModelFactory
 import com.android.profkontur.R
-import com.android.profkontur.ViewModel.TestsVIewModel
+import com.android.profkontur.ViewModel.Test.TestsVIewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -35,8 +35,11 @@ class MetaTestFragment() : Fragment() {
     private lateinit var TestLayuot: LinearLayout
     private  lateinit var TestNameTextView: TextView
     private  lateinit var TimeTestTextView: TextView
+    private  lateinit var QuestionCountTextView: TextView
+    private lateinit var TypeTestTextView:TextView
     private  lateinit var StartTestButton: Button
     private  lateinit var MetaData: MetaData
+
 
     private lateinit var viewModel: TestsVIewModel
 
@@ -111,12 +114,16 @@ class MetaTestFragment() : Fragment() {
             DscTestTextView.text = MetaData.short_dsc
             TestNameTextView.text = MetaData.name
             TimeTestTextView.text = MetaData.time
+            if(MetaData.prefix_name!=null){TypeTestTextView.text = MetaData.prefix_name}else{TypeTestTextView.text="Тест"}
+            QuestionCountTextView.text = MetaData.questions
         }else{
 
         }
     }
 
     fun initAboutTestViews(view: View){
+        QuestionCountTextView = view.findViewById(R.id.QuestionCountTextView);
+        TypeTestTextView = view.findViewById(R.id.TypeTestTextView);
         DscTestTextView = view.findViewById(R.id.DscTestTextView);
         TestNameTextView = view.findViewById(R.id.TestNameTextView);
         TimeTestTextView = view.findViewById(R.id.TimeTestTextView);

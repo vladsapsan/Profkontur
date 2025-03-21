@@ -30,13 +30,13 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
 
 
-    private lateinit var TestButton: Button
-    private val binding get() = _binding!!
+    private lateinit var ProfMethodicButton: Button
+    private lateinit var MotivationMethodicButton: Button
 
-    private lateinit var recyclerMethodicView: RecyclerView
+
     private lateinit var viewModel: HomeViewModel
 
-    private lateinit var ProgressBar:ProgressBar
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
     ): View {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val root: View = _binding!!.root
 
         return root
     }
@@ -53,65 +53,19 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ProgressBar = view.findViewById(R.id.ProgressBar)
-
-        recyclerMethodicView = view.findViewById(R.id.recycler_view)
-        recyclerMethodicView.layoutManager = LinearLayoutManager(context)
-
-        viewModel.testList.observe(viewLifecycleOwner, Observer { testList ->
-            if (testList != null) {
-                val adapter = MethodicTestListAdapter(testList) { testItem ->
-                    // Обработка нажатия на карточку теста
-                    startTest(testItem)
-                }
-                recyclerMethodicView.adapter = adapter
-            }
-        })
-
-        // Наблюдение за состоянием загрузки
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loadingstate.collectLatest { loadingState ->
-                    when (loadingState) {
-                        is LoadingState.Loading -> {
-                            ProgressBar.visibility = View.VISIBLE
-                            recyclerMethodicView.visibility = View.GONE
-                        }
-                        is LoadingState.Ready -> {
-                            ProgressBar.visibility = View.GONE
-                            recyclerMethodicView.visibility = View.VISIBLE
-                        }
-                        is LoadingState.Error -> {
-                            ProgressBar.visibility = View.GONE
-                            recyclerMethodicView.visibility = View.GONE
-                            Toast.makeText(requireContext(), loadingState.messege, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-        }
-
-        viewModel.loadMethodicTestList("motivation") // Загружаем список тестов при создании фрагмента
-
-        TestButton = view.findViewById(R.id.TakeTestButtons)
-        TestButton.setOnClickListener{
-            openSecondFragment()
-        }
+        MotivationMethodicButton = view.findViewById(R.id.MotivationMethodicButton)
+        MotivationMethodicButton.setOnClickListener {startMethodic("motivation")}
+        ProfMethodicButton= view.findViewById(R.id.ProfMethodicButton)
+        ProfMethodicButton.setOnClickListener { startMethodic("proforientation")}
     }
 
-
-
-    private fun startTest(test:MethodicItemModel){
+    private fun startMethodic(Methodic: String){
         val bundle = Bundle().apply {
-            putString("testName", test.machine_name) //  Ключ ("testName") должен соответствовать ключу, который вы будете использовать для получения данных
+            putString("Methodic", Methodic) //  Ключ ("testName") должен соответствовать ключу, который вы будете использовать для получения данных
         }
-        findNavController().navigate(R.id.action_navigation_home_to_metaTestFragment, bundle)
+        findNavController().navigate(R.id.action_navigation_home_to_methodicFragment, bundle)
     }
 
-    //Запуск фрагмента с тестом
-    private fun openSecondFragment() {
-        findNavController().navigate(R.id.action_navigation_home_to_metaTestFragment)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

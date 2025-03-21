@@ -18,6 +18,8 @@ retrofit = "2.9.0"
 databinding = "8.8.2"
 googleGmsGoogleServices = "4.4.2"
 firebaseDatabase = "21.0.0"
+legacySupportV4 = "1.0.0"
+fragmentKtx = "1.8.6"
 
 [libraries]
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -40,6 +42,8 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 # Добавьте библиотеки Data Binding
 androidx-databinding-runtime = { module = "androidx.databinding:databinding-runtime", version.ref = "databinding" }
 androidx-databinding-compiler = { module = "androidx.databinding:databinding-compiler", version.ref = "databinding" }
+androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

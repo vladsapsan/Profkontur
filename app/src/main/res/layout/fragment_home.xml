@@ -7,44 +7,44 @@
     android:background="@color/main_gray_background_color"
     tools:context=".ui.home.HomeFragment">
 
-    <ProgressBar
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:indeterminateTint="@color/main_blue_text_color"
-        style="?android:attr/progressBarStyleLarge"
-        android:indeterminate="false"
-        android:id="@+id/ProgressBar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"/>
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_marginTop="16dp"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/MethodicTestsString"
-        android:textSize="18sp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_margin="16dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:visibility="gone"
-        android:id="@+id/TakeTestButtons"
-        android:backgroundTint="@color/main_blue_text_color"
-        android:layout_gravity="bottom"
-        android:layout_margin="60dp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="@string/TakeTest"/>
+        <TextView
+            android:layout_marginTop="16dp"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Доступные методики"
+            android:textSize="22sp"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ProfMethodicButton"
+            android:backgroundTint="@color/main_gray_background_color"
+            app:cornerRadius="8dp"
+            android:layout_margin="16dp"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            app:strokeColor="@color/main_blue_text_color"
+            app:strokeWidth="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Профориентация"
+            android:textColor="@color/main_blue_text_color" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/MotivationMethodicButton"
+            android:backgroundTint="@color/main_gray_background_color"
+            app:cornerRadius="8dp"
+            android:layout_margin="16dp"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            app:strokeColor="@color/main_blue_text_color"
+            app:strokeWidth="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Мотивация"
+            android:textColor="@color/main_blue_text_color" />
+    </LinearLayout>
 </FrameLayout>

@@ -56,14 +56,26 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginRight="16dp"
-                        android:id="@+id/TimerText"
-                        android:layout_width="wrap_content"
-                        android:text="00:00"
+                    <LinearLayout
                         android:layout_gravity="right"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/timer_24px"/>
+                        <TextView
+                            android:layout_marginRight="16dp"
+                            android:id="@+id/TimerText"
+                            android:layout_width="wrap_content"
+                            android:text="00:00"
+                            android:layout_gravity="right"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
                 </FrameLayout>
 
             </LinearLayout>
@@ -152,6 +164,7 @@
 
 
             <LinearLayout
+                android:layout_margin="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -159,6 +172,7 @@
                 tools:ignore="ExtraText">
 
                 <com.google.android.material.button.MaterialButton
+                    android:visibility="gone"
                     android:id="@+id/button_back"
                     android:layout_margin="16dp"
                     android:backgroundTint="@color/white"

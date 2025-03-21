@@ -7,11 +7,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="StartTestString">Начать тест</string>
-    <string name="CountMinOftestString">Количество минут выделенное на тест:</string>
+    <string name="CountMinOftestString">Количество минут на тест</string>
     <string name="TestString">Тест</string>
     <string name="TestResultSrting">Результаты теста</string>
     <string name="TestsString">Тестирования</string>
     <string name="MethodicTestsString">Тесты методики</string>
     <string name="NextString">Следующий</string>
     <string name="PriviosString">Предыдущий</string>
+    <string name="CountQuestString">Количество вопросов</string>
+    <string name="BackString">Вернуться</string>
 </resources>

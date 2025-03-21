@@ -1,4 +1,4 @@
-package com.android.profkontur.View
+package com.android.profkontur.View.Test
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,29 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.savedstate.SavedStateRegistryOwner
 import com.android.profkontur.Model.LoadingState
 import com.android.profkontur.Model.MetaData
 import com.android.profkontur.Model.QuestViewModelFactory
 import com.android.profkontur.Model.Question
 import com.android.profkontur.R
-import com.android.profkontur.ViewModel.TestsVIewModel
+import com.android.profkontur.ViewModel.Test.TestsVIewModel
 import com.android.profkontur.timer.TestTimer
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -201,6 +197,25 @@ class AboutTestFragment : Fragment() {
                 radioButton3.text =
                     question.answers.get("3")?.answer ?: ""
                 answersRadioGroup.addView(radioButton3)
+
+            }
+            4 -> {
+                val radioButton1 = RadioButton(context)
+                radioButton1.text =
+                    question.answers.get("1")?.answer ?: ""
+                answersRadioGroup.addView(radioButton1)
+                val radioButton2 = RadioButton(context)
+                radioButton2.text =
+                    question.answers.get("2")?.answer ?: ""
+                answersRadioGroup.addView(radioButton2)
+                val radioButton3 = RadioButton(context)
+                radioButton3.text =
+                    question.answers.get("3")?.answer ?: ""
+                answersRadioGroup.addView(radioButton3)
+                val radioButton4 = RadioButton(context)
+                radioButton4.text =
+                    question.answers.get("4")?.answer ?: ""
+                answersRadioGroup.addView(radioButton4)
 
             }
         }

@@ -40,7 +40,7 @@ data class MetaData(
     val instruction: String? = null,
     val age: String? = null,
     val time: String? = null,
-    val questionsCount: String? = null
+    val questions: String? = null
 )
 
 data class Border(
@@ -53,6 +53,8 @@ data class Answer(
 )
 
 data class Scale(
+    val tip: String? = null,
+    val desc: String? = null,
     val answers: Map<String, AnswerScale>? = null // Key is question number (String)
 )
 
@@ -66,6 +68,8 @@ sealed class LoadingState{
     object Ready:LoadingState()
     data class Error(val messege:String): LoadingState()
 }
+
+
 
 //Декодикнг принимаемых тестовых json файлов в разделе начисления очков за ответы
 class ScalesDeserializer : JsonDeserializer<Scales> {

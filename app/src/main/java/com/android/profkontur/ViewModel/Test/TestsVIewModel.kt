@@ -1,9 +1,7 @@
-package com.android.profkontur.ViewModel
+package com.android.profkontur.ViewModel.Test
 
 import android.annotation.SuppressLint
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -11,30 +9,17 @@ import androidx.lifecycle.ViewModel
 import com.android.profkontur.Model.MetaData
 import com.android.profkontur.Model.Question
 import com.android.profkontur.Model.QuestionsData
-import com.android.profkontur.timer.TestTimer
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.android.profkontur.Model.LoadingState
 import com.android.profkontur.Model.Scales
-import com.android.profkontur.Model.ScalesDeserializer
-import com.android.profkontur.RestApi.RetrofitInstance
 import com.android.profkontur.RestApi.RetrofitTestInstance
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.log
 
 class TestsVIewModel(private val savedStateHandle: SavedStateHandle):ViewModel() {
 

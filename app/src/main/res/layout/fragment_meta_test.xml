@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/main_gray_background_color"
-    tools:context=".View.MetaTestFragment">
+    tools:context=".View.Test.MetaTestFragment">
 
     <ProgressBar
         android:visibility="gone"
@@ -34,16 +34,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_margin="16dp"
                 android:orientation="vertical">
                 <TextView
-                    android:text="@string/TestString"
+                    android:id="@+id/TypeTestTextView"
+                    android:text="Тип"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:textColor="@color/main_gray_text_color"
                     android:textSize="16sp" />
                 <TextView
@@ -52,14 +50,13 @@
                     android:id="@+id/TestNameTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:textColor="@color/main_black_text_color"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp"/>
                 <TextView
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="12dp"
                     android:text="Описание теста"
-                    android:gravity="center"
                     android:id="@+id/DscTestTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,18 +65,49 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/timer_24px"/>
                     <TextView
+                        android:layout_marginLeft="6dp"
                         android:text="@string/CountMinOftestString"
-                        android:id="@+id/TimeToTestTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
                         android:layout_marginBottom="8dp"/>
                     <TextView
+                        android:layout_marginLeft="4dp"
                         android:text=""
+                        android:textStyle="bold"
                         android:id="@+id/TimeTestTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/checklist_24px"/>
+                    <TextView
+                        android:layout_marginLeft="6dp"
+                        android:text="@string/CountQuestString"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:layout_marginLeft="4dp"
+                        android:text=""
+                        android:textStyle="bold"
+                        android:id="@+id/QuestionCountTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
@@ -89,18 +117,15 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/StartTestButton"
             android:backgroundTint="@color/main_blue_text_color"
             app:cornerRadius="8dp"
             android:layout_margin="16dp"
-            app:iconPadding="6dp"
-            android:layout_gravity="center_horizontal"
-            android:paddingRight="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="50dp"
             android:text="@string/StartTestString"
             android:textColor="@color/white"
             app:iconTint="@color/white"

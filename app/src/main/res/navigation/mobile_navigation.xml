@@ -11,8 +11,8 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_metaTestFragment"
-            app:destination="@id/metaTestFragment" />
+            android:id="@+id/action_navigation_home_to_methodicFragment"
+            app:destination="@id/methodicFragment" />
     </fragment>
 
     <fragment
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/aboutTestFragment"
-        android:name="com.android.profkontur.View.AboutTestFragment"
+        android:name="com.android.profkontur.View.Test.AboutTestFragment"
         android:label="fragment_about_test"
         tools:layout="@layout/fragment_about_test" >
         <action
@@ -38,20 +38,32 @@
     </fragment>
     <fragment
         android:id="@+id/testReportFragment"
-        android:name="com.android.profkontur.View.TestReportFragment"
+        android:name="com.android.profkontur.View.Test.TestReportFragment"
         android:label="fragment_test_report"
         tools:layout="@layout/fragment_test_report" >
         <action
             android:id="@+id/action_testReportFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_testReportFragment_to_methodicFragment"
+            app:destination="@id/methodicFragment" />
     </fragment>
     <fragment
         android:id="@+id/metaTestFragment"
-        android:name="com.android.profkontur.View.MetaTestFragment"
+        android:name="com.android.profkontur.View.Test.MetaTestFragment"
         android:label="fragment_meta_test"
         tools:layout="@layout/fragment_meta_test" >
         <action
             android:id="@+id/action_metaTestFragment_to_aboutTestFragment"
             app:destination="@id/aboutTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/methodicFragment"
+        android:name="com.android.profkontur.View.Methodic.MethodicFragment"
+        android:label="fragment_methodic"
+        tools:layout="@layout/fragment_methodic" >
+        <action
+            android:id="@+id/action_methodicFragment_to_metaTestFragment"
+            app:destination="@id/metaTestFragment" />
     </fragment>
 </navigation>

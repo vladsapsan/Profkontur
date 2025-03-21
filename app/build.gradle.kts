@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.androidx.databinding.runtime)
     implementation(libs.gson)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.fragment.ktx)
     kapt(libs.androidx.databinding.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -16,11 +16,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-        <ImageView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/insert_chart_24px"
-            />
+            android:orientation="horizontal">
+            <TextView
+                android:text="@string/TestString"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_black_text_color"
+                android:textSize="16sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/insert_chart_24px" />
+        </LinearLayout>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/test_name"
             android:layout_width="wrap_content"
