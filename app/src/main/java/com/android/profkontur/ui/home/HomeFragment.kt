@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -22,6 +23,7 @@ import com.android.profkontur.Model.MethodicItemModel
 import com.android.profkontur.Model.MethodicTestListAdapter
 import com.android.profkontur.R
 import com.android.profkontur.databinding.FragmentHomeBinding
+import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -30,8 +32,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
 
 
-    private lateinit var ProfMethodicButton: Button
-    private lateinit var MotivationMethodicButton: Button
+    private lateinit var ProfMethodicButton: CardView
+    private lateinit var MotivationMethodicButton: CardView
 
 
     private lateinit var viewModel: HomeViewModel
@@ -52,6 +54,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ false)
 
         MotivationMethodicButton = view.findViewById(R.id.MotivationMethodicButton)
         MotivationMethodicButton.setOnClickListener {startMethodic("motivation")}

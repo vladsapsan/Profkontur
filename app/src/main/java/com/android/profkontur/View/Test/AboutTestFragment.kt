@@ -1,16 +1,26 @@
 package com.android.profkontur.View.Test
 
+import android.R.attr.animation
+import android.R.attr.backgroundTint
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.cardview.widget.CardView
+import androidx.core.animation.doOnEnd
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -26,6 +36,9 @@ import com.android.profkontur.Model.Question
 import com.android.profkontur.R
 import com.android.profkontur.ViewModel.Test.TestsVIewModel
 import com.android.profkontur.timer.TestTimer
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -35,13 +48,23 @@ class AboutTestFragment : Fragment() {
 
     private  lateinit var questionTextView: TextView
     private  lateinit var AboutQuestionText: TextView
-    private  lateinit var TimerText: TextView
+    private  lateinit var TimerText1: TextView
+    private  lateinit var TimerText2: TextView
+    private  lateinit var TimerText3: TextView
+    private  lateinit var TimerText4: TextView
     private  lateinit var CurrentQuestionNumber: TextView
     private  lateinit var AllQuestionNUmber: TextView
     private lateinit var answersRadioGroup:RadioGroup
     private lateinit var nextQuestionButton:Button
+    private lateinit var ExitButton:FloatingActionButton
+
 
     private lateinit var ProgressBar: ProgressBar
+    private lateinit var progresstestbar: ProgressBar
+
+    private lateinit var questionCardView: CardView
+    private lateinit var AnswerCardView: CardView
+
 
     private  lateinit var MetaData: MetaData
 
@@ -55,6 +78,7 @@ class AboutTestFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
       //  binding = FragmentAboutTestBinding.inflate(inflater, container, false)
+        SetTransitAnimation()
         return inflater.inflate(R.layout.fragment_about_test, container, false)
     }
 
@@ -65,6 +89,7 @@ class AboutTestFragment : Fragment() {
         viewModel = ViewModelProvider(requireParentFragment(), QuestViewModelFactory(requireActivity()))[TestsVIewModel::class.java]
 
         initTestViews(view)
+        CheckbackPresstest()
 
         nextQuestionButton.setOnClickListener {
             if(answersRadioGroup.checkedRadioButtonId==-1){
@@ -73,6 +98,7 @@ class AboutTestFragment : Fragment() {
                     SendAnswer(answersRadioGroup.indexOfChild(view.findViewById(answersRadioGroup.checkedRadioButtonId))+1)
             }
         }
+        ExitButton.setOnClickListener { ShowDialogAboutFinishedtest() }
 
         viewModel.TestIsDone.observe(viewLifecycleOwner, Observer { isDone ->
             if (isDone) {
@@ -81,6 +107,8 @@ class AboutTestFragment : Fragment() {
 
             }
         })
+
+
 
         // Наблюдение за состоянием загрузки
         lifecycleScope.launch {
@@ -119,18 +147,41 @@ class AboutTestFragment : Fragment() {
                 testTimer.remainingTime.collectLatest { remainingSeconds ->
                     val minutes = remainingSeconds / 60
                     val seconds = remainingSeconds % 60
-                    val timeString = String.format("%02d:%02d", minutes, seconds)
-                    TimerText.text = timeString
+                    val timeString = String.format("%02d%02d", minutes, seconds)
+                    val digit1 = timeString[0].toString()
+                    val digit2 = timeString[1].toString()
+                    val digit3 = timeString[2].toString()
+                    val digit4 = timeString[3].toString()
+                    if(digit1!=TimerText1.text){
+                        animateTimerChange(TimerText1, digit1)
+                    }
+                    if(digit2!=TimerText2.text){
+                        animateTimerChange(TimerText2, digit2)
+                    }
+                    if(digit3!=TimerText3.text){
+                        animateTimerChange(TimerText3, digit3)
+                    }
+                    if(digit4!=TimerText4.text){
+                        animateTimerChange(TimerText4, digit4)
+                    }
+
                 }
             }
         }
     }
 
     fun initTestViews(view: View){
+        ExitButton= view.findViewById(R.id.ExitButton);
+        AnswerCardView= view.findViewById(R.id.AnswerCardView);
+        questionCardView= view.findViewById(R.id.questionCardView);
         questionTextView= view.findViewById(R.id.questionTextView);
         AboutQuestionText = view.findViewById(R.id.AboutQuestionText);
-        TimerText = view.findViewById(R.id.TimerText);
+        TimerText1 = view.findViewById(R.id.TimerText1);
+        TimerText2 = view.findViewById(R.id.TimerText2);
+        TimerText3 = view.findViewById(R.id.TimerText3);
+        TimerText4 = view.findViewById(R.id.TimerText4);
         ProgressBar = view.findViewById(R.id.ProgressBar);
+        progresstestbar= view.findViewById(R.id.progresstestbar);
         CurrentQuestionNumber = view.findViewById(R.id.CurrentQuestionNumber);
         AllQuestionNUmber = view.findViewById(R.id.AllQuestionNUmber);
         answersRadioGroup = view.findViewById(R.id.answersRadioGroup);
@@ -140,8 +191,10 @@ class AboutTestFragment : Fragment() {
     fun SendAnswer(int: Int){
         viewModel.selectAnswer(int) //Отправляем выбранный ответ
         viewModel.nextQuestion()
-        DisplayCurrentQuestion()
+        animateCurrentQuestionDisplay()
+        updateProgressBar()
     }
+
     fun DisplayCurrentQuestion(){
         val question = viewModel.getCurrentQuestion()
         if (question != null) {
@@ -149,15 +202,81 @@ class AboutTestFragment : Fragment() {
             questionTextView.text = question.question
             AboutQuestionText.text = question.dsc
             LoadRadioButtonAnxwer(question)
+            if(CurrentQuestionNumber.text.toString() == AllQuestionNUmber.text.toString()){
+                nextQuestionButton.text="Завершить"
+            }
         } else {
             questionTextView.text = "Loading..."
         }
     }
 
+
+    private fun animateCurrentQuestionDisplay() {
+        // Создаем анимацию для CardView с вопросом
+        val fadeOutQuestion = ObjectAnimator.ofFloat(questionCardView, View.ALPHA, 1f, 0f)
+        fadeOutQuestion.duration = 300
+
+        // Создаем анимацию для CardView с ответами
+        val fadeOutAnswers = ObjectAnimator.ofFloat(AnswerCardView, View.ALPHA, 1f, 0f)
+        fadeOutAnswers.duration = 300
+
+        // Создаем слушатель для выполнения операций после fadeOut анимаций
+        val animatorListener = object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                questionCardView.isVisible = false
+                AnswerCardView.isVisible = false // Добавляем скрытие answersCardView
+
+                // Обновляем текст вопроса и ответов
+                DisplayCurrentQuestion()
+
+                // Подготавливаем анимацию появления CardView с вопросом
+                questionCardView.alpha = 0f
+                questionCardView.isVisible = true
+
+                val fadeInQuestion = ObjectAnimator.ofFloat(questionCardView, View.ALPHA, 0f, 1f)
+                fadeInQuestion.duration = 300
+
+                // Подготавливаем анимацию появления CardView с ответами
+                AnswerCardView.alpha = 0f
+                AnswerCardView.isVisible = true // Делаем answersCardView видимой
+
+                val fadeInAnswers = ObjectAnimator.ofFloat(AnswerCardView, View.ALPHA, 0f, 1f)
+                fadeInAnswers.duration = 300
+
+                // Запускаем анимации появления
+                fadeInQuestion.start()
+                fadeInAnswers.start()
+            }
+        }
+
+        // Добавляем слушатель к анимации исчезновения вопроса
+        fadeOutQuestion.addListener(animatorListener)
+
+        // Запускаем анимации исчезновения
+        fadeOutQuestion.start()
+        fadeOutAnswers.start()  // Запускаем анимацию исчезновения ответов
+    }
+
+    private fun PlusProgressBar() {
+        progresstestbar.progress++
+    }
+
+    private fun updateProgressBar() {
+        val animator = ObjectAnimator.ofInt(progresstestbar, "progress", progresstestbar.progress, viewModel.QurrentQuestionIndex.value* 100)
+        animator.setDuration(500)
+        animator.setAutoCancel(true)
+        animator.setInterpolator(DecelerateInterpolator())
+        animator.start()
+    }
+    private fun SetProgressBar(){
+        progresstestbar.max= (viewModel.AllTestData.value?.questions?.size)!!* 100
+        progresstestbar.progress=1* 100
+    }
     private fun StartTest(){
+        SetProgressBar()
         InitTimer()
         testTimer.StartTimer()
-        DisplayCurrentQuestion()
+        animateCurrentQuestionDisplay()
     }
 
     private fun TestDone(){
@@ -169,6 +288,13 @@ class AboutTestFragment : Fragment() {
             .setPopUpTo(R.id.aboutTestFragment, true) // true - удалить
             .build()
         findNavController().navigate(R.id.action_aboutTestFragment_to_testReportFragment,null,navOptions)
+    }
+
+    private fun SetTransitAnimation(){
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ false)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ false)
     }
     private fun LoadRadioButtonAnxwer(question: Question) {
         answersRadioGroup.removeAllViews() // Очищаем RadioGroup перед добавлением новых RadioButtons
@@ -220,6 +346,58 @@ class AboutTestFragment : Fragment() {
             }
         }
     }
+
+    fun ShowDialogAboutFinishedtest(){
+        context?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle("Преждевремменное завершение теста")
+                .setMessage("Отменить прохождения теста и выйти, результат прохождения не будет сохранен")
+                .setNeutralButton("Остаться") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton("Выйти") { dialog, which ->
+                    findNavController().popBackStack()
+                }
+                .show()
+        }
+    }
+    fun CheckbackPresstest(){
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                ShowDialogAboutFinishedtest()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
+    }
+
+
+    fun animateTimerChange(textView: TextView, newValue: String) {
+        val translateYUp = ObjectAnimator.ofFloat(textView, View.TRANSLATION_Y, 0f, -textView.height.toFloat())
+        val fadeOut = ObjectAnimator.ofFloat(textView, View.ALPHA, 1f, 0f)
+        val fadeIn = ObjectAnimator.ofFloat(textView, View.ALPHA, 0f, 1f)
+        val translateYDown = ObjectAnimator.ofFloat(textView, View.TRANSLATION_Y, textView.height.toFloat(), 0f)
+
+        translateYUp.interpolator = DecelerateInterpolator()
+        fadeOut.interpolator = DecelerateInterpolator()
+        fadeIn.interpolator = DecelerateInterpolator()
+        translateYDown.interpolator = DecelerateInterpolator()
+
+        translateYUp.duration = 250
+        fadeOut.duration = 250
+        fadeIn.duration = 250
+        translateYDown.duration = 250
+
+        translateYUp.doOnEnd {
+            textView.text = newValue
+            translateYDown.start()
+            fadeIn.start()
+        }
+
+        fadeOut.start()
+        translateYUp.start()
+    }
+
+
 
         override fun onDestroyView() {
         super.onDestroyView()

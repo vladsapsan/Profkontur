@@ -12,39 +12,169 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/big_profkonturicon"/>
+        <TextView
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@string/AboutProfkonturString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_black_text_color"
+            android:textSize="14sp" />
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="12dp"
+            android:layout_height="1dp"/>
         <TextView
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Доступные методики"
+            android:text="Доступные методики тестирования"
+            android:layout_marginBottom="24dp"
             android:textSize="22sp"/>
-        <com.google.android.material.button.MaterialButton
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/ProfMethodicButton"
-            android:backgroundTint="@color/main_gray_background_color"
-            app:cornerRadius="8dp"
-            android:layout_margin="16dp"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal"
-            app:strokeColor="@color/main_blue_text_color"
-            app:strokeWidth="1dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Профориентация"
-            android:textColor="@color/main_blue_text_color" />
-        <com.google.android.material.button.MaterialButton
+            app:strokeWidth="0dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/insert_chart_24px" />
+                    <TextView
+                        android:text="Методический сборник"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/main_black_text_color"
+                        android:textSize="16sp" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:text="5 тестов"
+                            android:layout_gravity="right|center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/main_black_text_color"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+                </LinearLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/test_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:text="Профориентация" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:visibility="visible"
+                    android:id="@+id/test_author"
+                    android:layout_marginRight="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:text="Сборник тестов на определение профессиональной идентичности" />
+            </LinearLayout>
+            <ImageView
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/chevron_right_24px"
+                />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/MotivationMethodicButton"
-            android:backgroundTint="@color/main_gray_background_color"
-            app:cornerRadius="8dp"
-            android:layout_margin="16dp"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal"
-            app:strokeColor="@color/main_blue_text_color"
-            app:strokeWidth="1dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Мотивация"
-            android:textColor="@color/main_blue_text_color" />
+            app:strokeWidth="0dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/insert_chart_24px" />
+                    <TextView
+                        android:text="Методический сборник"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/main_black_text_color"
+                        android:textSize="16sp" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:text="2 теста"
+                            android:layout_gravity="right|center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/main_black_text_color"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+                </LinearLayout>
+                <com.google.android.material.textview.MaterialTextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:text="Мотивация" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:visibility="visible"
+                    android:layout_marginRight="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:text="Сборник на определение текущего эмоционального состояния человека" />
+            </LinearLayout>
+            <ImageView
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/chevron_right_24px"
+                />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </FrameLayout>

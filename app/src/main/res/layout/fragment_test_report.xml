@@ -9,7 +9,6 @@
 
 
     <LinearLayout
-        android:layout_marginBottom="65dp"
         android:layout_width="match_parent"
         android:background="@color/main_gray_background_color"
         android:orientation="vertical"
@@ -70,5 +69,9 @@
             android:layout_height="60dp"
             android:text="@string/BackString"
             android:textColor="@color/main_blue_text_color" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
     </LinearLayout>
 </ScrollView>

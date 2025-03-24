@@ -25,6 +25,12 @@
             <LinearLayout
                 android:background="@color/main_green_background_color"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:ignore="ExtraText">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:gravity="center_vertical"
                 android:paddingTop="5dp"
@@ -57,32 +63,77 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:layout_marginRight="8dp"
                         android:layout_gravity="right"
+                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <ImageView
-                            android:layout_gravity="right"
+                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/timer_24px"/>
                         <TextView
-                            android:layout_marginRight="16dp"
-                            android:id="@+id/TimerText"
+                            android:id="@+id/TimerText1"
                             android:layout_width="wrap_content"
-                            android:text="00:00"
-                            android:layout_gravity="right"
+                            android:text="0"
                             android:layout_height="wrap_content"
                             android:textSize="18sp" />
+                        <TextView
+                            android:id="@+id/TimerText2"
+                            android:layout_width="wrap_content"
+                            android:text="0"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text=":"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                        <TextView
+                            android:id="@+id/TimerText3"
+                            android:layout_width="wrap_content"
+                            android:text="0"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                        <TextView
+                            android:id="@+id/TimerText4"
+                            android:layout_width="wrap_content"
+                            android:text="0"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                        <Space
+                            android:layout_width="16dp"
+                            android:layout_height="1dp"/>
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/ExitButton"
+                            style="?attr/floatingActionButtonSmallStyle"
+                            android:layout_width="wrap_content"
+                            app:backgroundTint="@color/main_gray_background_color"
+                            android:layout_height="wrap_content"
+                            app:elevation="2dp"
+                            app:tint ="@color/main_blue_text_color"
+                            android:layout_gravity="center|end"
+                            app:srcCompat="@drawable/close_24px" />
+
                     </LinearLayout>
-
                 </FrameLayout>
-
+            </LinearLayout>
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progresstestbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:trackCornerRadius="10dp"
+                    app:trackThickness="4dp"
+                    app:indicatorColor="@color/main_blue_text_color"
+                    app:trackColor="@color/main_gray_background_color" />
             </LinearLayout>
 
 
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/questionCardView"
                 android:layout_margin="6dp"
                 app:strokeWidth="0dp"
                 app:cardElevation="8dp"
@@ -104,7 +155,7 @@
                         android:textColor="@color/main_gray_text_color"
                         android:textSize="16sp" />
                     <TextView
-                        android:text="Question remarks"
+                        android:text=""
                         android:gravity="center"
                         android:textColor="@color/main_black_text_color"
                         android:id="@+id/questionTextView"
@@ -121,6 +172,7 @@
 
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/AnswerCardView"
                 android:layout_margin="6dp"
                 app:strokeWidth="0dp"
                 app:cardElevation="8dp"
@@ -163,7 +215,12 @@
             </com.google.android.material.card.MaterialCardView>
 
 
+            <FrameLayout
+                android:layout_marginBottom="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <LinearLayout
+                android:layout_gravity="bottom"
                 android:layout_margin="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,7 +241,8 @@
                     android:paddingLeft="12dp"
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
+                    android:textSize="14sp"
                     android:text="@string/PriviosString"
                     android:textColor="@color/main_blue_text_color"
                     app:iconTint="@color/main_blue_text_color"
@@ -199,8 +257,9 @@
                     android:paddingRight="12dp"
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:text="@string/NextString"
+                    android:textSize="14sp"
                     android:textColor="@color/white"
                     app:iconTint="@color/white"
                     app:icon="@drawable/chevron_right_24px"
@@ -213,9 +272,8 @@
                     android:layout_height="wrap_content"
                     android:text="Следующий вопрос"
                     android:layout_gravity="center_horizontal"/>
-
             </LinearLayout>
-
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/resultTextView"

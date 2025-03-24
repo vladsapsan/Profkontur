@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Profkontur"
+rootProject.name = "ПрофКонтур"
 include(":app")

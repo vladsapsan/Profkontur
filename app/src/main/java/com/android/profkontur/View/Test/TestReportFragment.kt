@@ -16,6 +16,7 @@ import com.android.profkontur.Model.Scale
 import com.android.profkontur.Model.Scales
 import com.android.profkontur.R
 import com.android.profkontur.ViewModel.Test.TestsVIewModel
+import com.google.android.material.transition.MaterialSharedAxis
 
 
 class TestReportFragment : Fragment() {
@@ -31,7 +32,7 @@ class TestReportFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        SetTransitAnimation()
     }
 
     override fun onCreateView(
@@ -100,6 +101,13 @@ class TestReportFragment : Fragment() {
 
     private fun DecriptReport(scores:Map<String,Int>,scales:Scales?){
 
+    }
+
+    private fun SetTransitAnimation(){
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ false)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ false)
     }
 
 

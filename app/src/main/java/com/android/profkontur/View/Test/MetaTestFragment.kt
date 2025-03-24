@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
@@ -16,11 +18,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.transition.Visibility
 import com.android.profkontur.Model.LoadingState
 import com.android.profkontur.Model.MetaData
 import com.android.profkontur.Model.QuestViewModelFactory
 import com.android.profkontur.R
 import com.android.profkontur.ViewModel.Test.TestsVIewModel
+import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -28,13 +32,15 @@ import kotlinx.coroutines.launch
 class MetaTestFragment() : Fragment() {
 
     private lateinit var TestName:String
-
     private  lateinit var DscTestTextView: TextView
     private lateinit var ProgressBar: ProgressBar
     private lateinit var AboutTestLayout: LinearLayout
     private lateinit var TestLayuot: LinearLayout
     private  lateinit var TestNameTextView: TextView
+    private  lateinit var AuthorLayout: LinearLayout
+    private  lateinit var InstructionTextView: TextView
     private  lateinit var TimeTestTextView: TextView
+    private  lateinit var AuthorTextView: TextView
     private  lateinit var QuestionCountTextView: TextView
     private lateinit var TypeTestTextView:TextView
     private  lateinit var StartTestButton: Button
@@ -48,7 +54,9 @@ class MetaTestFragment() : Fragment() {
         arguments?.let {
             TestName = it.getString("testName").toString()
         }
+        SetTransitAnimation()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -114,6 +122,10 @@ class MetaTestFragment() : Fragment() {
             DscTestTextView.text = MetaData.short_dsc
             TestNameTextView.text = MetaData.name
             TimeTestTextView.text = MetaData.time
+            InstructionTextView.text= MetaData.instruction
+            if(MetaData.authors!=null)
+            {AuthorLayout.visibility = VISIBLE
+                AuthorTextView.text = MetaData.authors}
             if(MetaData.prefix_name!=null){TypeTestTextView.text = MetaData.prefix_name}else{TypeTestTextView.text="Тест"}
             QuestionCountTextView.text = MetaData.questions
         }else{
@@ -121,7 +133,16 @@ class MetaTestFragment() : Fragment() {
         }
     }
 
+    private fun SetTransitAnimation(){
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ false)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ false)
+    }
     fun initAboutTestViews(view: View){
+        InstructionTextView= view.findViewById(R.id.InstructionTextView);
+        AuthorLayout= view.findViewById(R.id.AuthorLayout);
+        AuthorTextView= view.findViewById(R.id.AuthorTextView);
         QuestionCountTextView = view.findViewById(R.id.QuestionCountTextView);
         TypeTestTextView = view.findViewById(R.id.TypeTestTextView);
         DscTestTextView = view.findViewById(R.id.DscTestTextView);

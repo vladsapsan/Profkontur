@@ -21,6 +21,7 @@ import com.android.profkontur.Model.MethodicTestListAdapter
 import com.android.profkontur.R
 import com.android.profkontur.ViewModel.Methodic.MethodicViewModel
 import com.android.profkontur.ui.home.HomeViewModel
+import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -39,6 +40,7 @@ class MethodicFragment : Fragment() {
         arguments?.let {
             MethodicName = it.getString("Methodic").toString()
         }
+        SetTransitAnimation()
     }
 
     override fun onCreateView(
@@ -101,6 +103,12 @@ class MethodicFragment : Fragment() {
     }
 
 
+    private fun SetTransitAnimation(){
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ false)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, /* forward= */ false)
+    }
 
     private fun startTest(test: MethodicItemModel){
         val bundle = Bundle().apply {
