@@ -12,9 +12,10 @@
     <string name="TestResultSrting">Результаты теста</string>
     <string name="TestsString">Тестирования</string>
     <string name="MethodicTestsString">Тесты</string>
-    <string name="NextString">Следующий</string>
+    <string name="NextString">Следующий вопрос</string>
     <string name="PriviosString">Предыдущий</string>
     <string name="CountQuestString">Количество вопросов</string>
     <string name="BackString">Вернуться</string>
     <string name="AboutProfkonturString">Цифровая платформа для создания интернет-тестов, прохождения тестирования и обучения</string>
+    <string name="GetAnswerString">Получить отчет</string>
 </resources>

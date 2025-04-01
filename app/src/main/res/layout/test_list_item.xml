@@ -14,22 +14,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="85dp"
         android:orientation="vertical"
         android:padding="16dp">
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
-                android:text="@string/TestString"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/TestString"
                 android:textColor="@color/main_black_text_color"
                 android:textSize="16sp" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/insert_chart_24px" />
+
+
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
@@ -37,21 +43,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:text="Test Name" />
+            android:text="Test Name"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:visibility="gone"
             android:id="@+id/test_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginRight="20dp"
+            android:text="Test Author"
             android:textAppearance="?attr/textAppearanceBody2"
-            android:text="Test Author" />
+            android:textColor="@color/main_black_text_color"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/IsDoneLayout"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="right|center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Завершено"
+                android:textColor="@color/Support_Green_Done_color"
+                android:textSize="14sp" />
+            <ImageView
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/task_alt_24px" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/arrow"
         android:layout_marginRight="16dp"
         android:layout_gravity="center_vertical|right"
         android:layout_width="wrap_content"

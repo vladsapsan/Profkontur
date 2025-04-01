@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/main_gray_background_color"
     tools:context=".View.Methodic.MethodicFragment">
 
@@ -16,34 +17,91 @@
         android:layout_width="60dp"
         android:layout_height="60dp"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/MethodicName"
             android:layout_marginTop="16dp"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/MethodicTestsString"
+            android:text="Мотивация"
             android:textSize="22sp"/>
+        <TextView
+            android:text="Методический сборник"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_black_text_color"
+            android:textSize="14sp" />
+        <TextView
+            android:layout_margin="16dp"
+            android:gravity="left"
+            android:text="Пройдите полный курс тестирования внутри данной методики для получения отчета"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_black_text_color"
+            android:textSize="14sp" />
+        <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Пройдено: "
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/CurrentDoneTestsNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" из "
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/AllTestsNUmber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="18sp" />
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_margin="16dp"
+            android:layout_margin="6dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:visibility="gone"
-        android:id="@+id/TakeTestButtons"
-        android:backgroundTint="@color/main_blue_text_color"
-        android:layout_gravity="bottom"
-        android:layout_margin="60dp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="@string/TakeTest"/>
+        <com.google.android.material.button.MaterialButton
+            android:visibility="gone"
+            android:id="@+id/GetReportButton"
+            android:backgroundTint="@color/main_blue_text_color"
+            app:cornerRadius="8dp"
+            android:layout_margin="16dp"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/GetAnswerString"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"
+            app:icon="@drawable/chevron_right_24px"
+            app:iconGravity="end" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
+    </LinearLayout>
+    </ScrollView>
+
 
 </FrameLayout>

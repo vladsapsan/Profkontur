@@ -8,12 +8,13 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-constraintlayout = "2.2.0"
+constraintlayout = "2.2.1"
 lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
-navigationFragmentKtx = "2.8.7"
-navigationUiKtx = "2.8.7"
-gson = "2.8.8"
+navigationFragmentKtx = "2.8.9"
+navigationUiKtx = "2.8.9"
+gson = "2.10.1"
+pdfviewer = "3.1.0-beta.1"
 retrofit = "2.9.0"
 databinding = "8.8.2"
 googleGmsGoogleServices = "4.4.2"
@@ -28,6 +29,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 artifactid = { module = "groupId:artifactId", version.ref = "artifactid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+pdfviewer = { module = "com.github.DImuthuUpe:AndroidPdfViewer", version.ref = "pdfviewer" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }

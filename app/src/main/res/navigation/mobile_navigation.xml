@@ -33,8 +33,8 @@
         android:label="fragment_about_test"
         tools:layout="@layout/fragment_about_test" >
         <action
-            android:id="@+id/action_aboutTestFragment_to_testReportFragment"
-            app:destination="@id/testReportFragment" />
+            android:id="@+id/action_aboutTestFragment_to_methodicFragment"
+            app:destination="@id/methodicFragment" />
     </fragment>
     <fragment
         android:id="@+id/testReportFragment"
@@ -44,9 +44,6 @@
         <action
             android:id="@+id/action_testReportFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
-        <action
-            android:id="@+id/action_testReportFragment_to_methodicFragment"
-            app:destination="@id/methodicFragment" />
     </fragment>
     <fragment
         android:id="@+id/metaTestFragment"
@@ -65,5 +62,13 @@
         <action
             android:id="@+id/action_methodicFragment_to_metaTestFragment"
             app:destination="@id/metaTestFragment" />
+        <action
+            android:id="@+id/action_methodicFragment_to_webViewRelustFragment"
+            app:destination="@id/webViewRelustFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/webViewRelustFragment"
+        android:name="com.android.profkontur.View.Result.WebViewRelustFragment"
+        android:label="fragment_web_view_relust"
+        tools:layout="@layout/fragment_web_view_relust" />
 </navigation>

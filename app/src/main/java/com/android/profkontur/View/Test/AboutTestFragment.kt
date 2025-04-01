@@ -7,6 +7,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,9 @@ import com.android.profkontur.Model.LoadingState
 import com.android.profkontur.Model.MetaData
 import com.android.profkontur.Model.QuestViewModelFactory
 import com.android.profkontur.Model.Question
+import com.android.profkontur.Model.answers
 import com.android.profkontur.R
+import com.android.profkontur.ViewModel.Methodic.MethodicViewModel
 import com.android.profkontur.ViewModel.Test.TestsVIewModel
 import com.android.profkontur.timer.TestTimer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -52,6 +55,7 @@ class AboutTestFragment : Fragment() {
     private  lateinit var TimerText2: TextView
     private  lateinit var TimerText3: TextView
     private  lateinit var TimerText4: TextView
+    private  lateinit var NameTestTextView: TextView
     private  lateinit var CurrentQuestionNumber: TextView
     private  lateinit var AllQuestionNUmber: TextView
     private lateinit var answersRadioGroup:RadioGroup
@@ -64,7 +68,6 @@ class AboutTestFragment : Fragment() {
 
     private lateinit var questionCardView: CardView
     private lateinit var AnswerCardView: CardView
-
 
     private  lateinit var MetaData: MetaData
 
@@ -171,6 +174,7 @@ class AboutTestFragment : Fragment() {
     }
 
     fun initTestViews(view: View){
+        NameTestTextView= view.findViewById(R.id.NameTestTextView);
         ExitButton= view.findViewById(R.id.ExitButton);
         AnswerCardView= view.findViewById(R.id.AnswerCardView);
         questionCardView= view.findViewById(R.id.questionCardView);
@@ -277,17 +281,54 @@ class AboutTestFragment : Fragment() {
         InitTimer()
         testTimer.StartTimer()
         animateCurrentQuestionDisplay()
+        NameTestTextView.text = viewModel.AllTestData.value?.meta?.name
     }
 
     private fun TestDone(){
         testTimer.StopTimer()
-        NavigateToReportAboutTest()
+        SendReportToMethodicView()
+        NavigateToMethodic()
     }
     private fun NavigateToReportAboutTest(){
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.aboutTestFragment, true) // true - удалить
             .build()
-        findNavController().navigate(R.id.action_aboutTestFragment_to_testReportFragment,null,navOptions)
+    //    findNavController().navigate(R.id.action_aboutTestFragment_to_testReportFragment,null,navOptions)
+    }
+    private fun NavigateToMethodic(){
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.aboutTestFragment, true) // true - удалить
+            .setPopUpTo(R.id.metaTestFragment, true) // true - удалить
+            .build()
+        findNavController().navigate(R.id.action_aboutTestFragment_to_methodicFragment,null,navOptions)
+    }
+
+    private fun SendReportToMethodicView(){
+        val MethodicViewModel = ViewModelProvider(requireParentFragment()).get(MethodicViewModel::class.java)
+        val TestName = viewModel.AllTestData.value?.meta?.machine_name
+        for (test in MethodicViewModel.testList.value!!){
+            if(test.machine_name==TestName){
+                test.isDone=true
+                break
+            }
+        }
+        if (TestName != null) {
+            MethodicViewModel.addTest(TestName,convertAnswers(viewModel.selectedAnswers.value))
+        }
+        MethodicViewModel.TestDOneCountReport()
+    }
+    fun convertAnswers(selectedAnswers: List<Int?>): answers {
+        val result = answers(mutableMapOf())
+        selectedAnswers.forEachIndexed { index, answerId ->
+            if (answerId != null) {
+                val stringList = listOf(answerId.toString())
+                result.answer?.put(index+1, stringList)
+            }
+        }
+        if (result.answer?.isEmpty() == true){
+            result.answer = null
+        }
+        return result
     }
 
     private fun SetTransitAnimation(){
